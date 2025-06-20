@@ -70,39 +70,39 @@ function AddProductPage() {
     }
   }
 
-  const handleEdit = async (id, formData) => {
-    if (!session) {
-      setError('Not authenticated');
-      return;
-    }
+  // const handleEdit = async (id, formData) => {
+  //   if (!session) {
+  //     setError('Not authenticated');
+  //     return;
+  //   }
 
-    setLoading(true);
-    setError(null);
+  //   setLoading(true);
+  //   setError(null);
 
-    try {
-      const res = await fetch(`/api/products/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+  //   try {
+  //     const res = await fetch(`/api/products/${id}`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${session.access_token}`,
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Cannot update product.');
-      }
+  //     const data = await res.json();
+  //     if (!res.ok) {
+  //       throw new Error(data.error || 'Cannot update product.');
+  //     }
 
-      alert('Product updated successfully!');
-      router.push('/products');
-    } catch (err) {
-      setError(err.message);
-      console.error('Edit error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     alert('Product updated successfully!');
+  //     router.push('/products');
+  //   } catch (err) {
+  //     setError(err.message);
+  //     console.error('Edit error:', err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   if (loading) return <p className="text-center mt-10">Loading...</p>
 

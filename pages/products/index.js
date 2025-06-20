@@ -35,33 +35,33 @@ const ProductsPage = () => {
   if (loading) return <p>Loading products...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const handleUpdate = async (id, updatedData) => {
-    try {
-      const res = await fetch(`/api/products/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: updatedData.name,
-          price: updatedData.price,
-          description: updatedData.description,
-          image: updatedData.image || '/placeholder.png',
-        }),
-      });
+//   const handleUpdate = async (id, updatedData) => {
+//     try {
+//       const res = await fetch(`/api/products/${id}`, {
+//         method: 'PUT',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//           name: updatedData.name,
+//           price: updatedData.price,
+//           description: updatedData.description,
+//           image: updatedData.image || '/placeholder.png',
+//         }),
+//       });
 
-      if (!res.ok) {
-        throw new Error('Failed to update product');
-      }
+//       if (!res.ok) {
+//         throw new Error('Failed to update product');
+//       }
 
-      const updatedProduct = await res.json();
-      setProducts(products.map((product) => (product.id === id ? updatedProduct.data : product)));
-      setIsEditModalOpen(false);
-      router.push('/products');
-    } catch (err) {
-      alert(`Error: ${err.message}`);
-    }
-  };
+//       const updatedProduct = await res.json();
+//       setProducts(products.map((product) => (product.id === id ? updatedProduct.data : product)));
+//       setIsEditModalOpen(false);
+//       router.push('/products');
+//     } catch (err) {
+//       alert(`Error: ${err.message}`);
+//     }
+//   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
