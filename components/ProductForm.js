@@ -26,6 +26,8 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
       setSession(currentSession);
     };
     
+  console.log('Current session:', session);
+
     getSession();
 
     // Listen for auth changes
