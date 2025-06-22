@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { supabase } from '../lib/supabase';
+import Image from 'next/image';
 
 const ProductForm = ({ productData = {}, onSubmit }) => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
     image: productData.image || '',
   });
   const [selectedFile, setSelectedFile] = useState(null);
+  // const [preview, setPreview] = useState(null);
   const [filePreview, setFilePreview] = useState(productData.image || '');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,9 +26,8 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
     const getSession = async () => {
       const { data: { session: currentSession } } = await supabase.auth.getSession();
       setSession(currentSession);
+      console.log('Current session:', session);
     };
-    
-  console.log('Current session:', session);
 
     getSession();
 
@@ -65,7 +66,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
     if (message) {
       setMessage('');
     }
-  }, [productData?.id, message]);
+  }, [productData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -243,8 +244,14 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
           />
           {filePreview && (
             <div className="mt-4 text-center">
-              <img src={filePreview} alt="Image Preview" className="inline-block max-w-full h-auto rounded-md border border-gray-300" />
-            </div>
+              <Image
+               src={filePreview}
+               alt="Preview"
+               width={300}
+               height={200}
+               className="object-cover"
+              />
+           </div>
           )}
         </div>
         <div className="flex justify-between">

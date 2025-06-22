@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useCart } from './CartContext';
+import Image from 'next/image';
 
 const Cart = ({ isOpen, onClose }) => {
   const { items, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
@@ -62,11 +63,14 @@ const Cart = ({ isOpen, onClose }) => {
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
                     <div className="flex-shrink-0">
-                      <img
-                        src={item.image || '/placeholder.png'}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded-md"
+                      <Image
+                       src={item.image}
+                       alt={item.name}
+                       width={80} // đặt kích thước phù hợp
+                       height={80}
+                       objectFit="cover"
                       />
+
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium text-gray-900 truncate">

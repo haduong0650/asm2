@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { supabase } from '../../lib/supabase';
 import AddToCartButton from '../../components/AddToCartButton';
-
+import Image from 'next/image';
 const ProductsPage = () => {
   const router = useRouter();
   const [products, setProducts] = useState([]);
@@ -140,7 +140,13 @@ const ProductsPage = () => {
         {products.map((product) => (
           <div key={product.id} className="bg-white rounded-lg shadow-md p-4">
             <Link href={`/products/${product.id}`}>
-              <img src={product.image || '/placeholder.png'} alt={product.name} className="w-full h-48 object-cover mb-4 cursor-pointer" />
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={300}            // hoặc kích thước tùy bạn
+                height={160}
+                className="object-cover w-full h-40"      // bạn vẫn có thể dùng Tailwind như cũ
+              />
             </Link>
             <h2 className="text-lg font-bold mb-2">{product.name}</h2>
             <p className="text-green-600 font-bold">${product.price.toFixed(2)}</p>

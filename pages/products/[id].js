@@ -2,18 +2,19 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { supabase } from '../../lib/supabase';
 import { useCart } from '../../components/CartContext';
+import Image from 'next/image';
 
 export default function ProductDetail() {
   const router = useRouter();
   const { id } = router.query; // Get ID from URL
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [addingToCart, setAddingToCart] = useState(false);
-  const { addToCart } = useCart();
+  // const { getTotalItems, getTotalPrice } = useCart();
 
   useEffect(() => {
     if (!id) return; // Don't fetch until ID is available
@@ -92,7 +93,13 @@ export default function ProductDetail() {
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex flex-col sm:flex-row">
           <div className="flex justify-center items-center bg-gray-100 rounded-md h-64 sm:w-1/2">
-            <img src={product.image || '/placeholder.png'} alt={product.name} className="max-h-full max-w-full object-contain" />
+            <Image
+              src={product.image || '/placeholder.png'}
+              alt={product.name}
+              width={400}
+              height={256}
+              className="max-h-full max-w-full object-contain"
+            />
           </div>
           <div className="sm:w-1/2 sm:pl-6">
             <h1 className="text-2xl font-bold text-blue-600 mb-4">{product.name}</h1>

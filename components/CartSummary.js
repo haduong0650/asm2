@@ -1,10 +1,10 @@
 import { useCart } from './CartContext';
 
 const CartSummary = ({ className = '', showDetails = false }) => {
-  const { items, getTotalItems, getTotalPrice } = useCart();
+  const { getTotalItems, getTotalPrice } = useCart();
   const totalItems = getTotalItems();
   const totalPrice = getTotalPrice();
-
+ 
   if (totalItems === 0) {
     return (
       <div className={`text-center py-4 ${className}`}>

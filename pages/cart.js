@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useCart } from '../components/CartContext';
 import Link from 'next/link';
 import { supabase } from '../lib/supabase';
-
+import Image from 'next/image';
 const CartPage = () => {
   const { items, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
   const [isUpdating, setIsUpdating] = useState(false);
@@ -114,7 +114,9 @@ const CartPage = () => {
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-12">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Your Cart is Empty</h1>
-          <p className="text-gray-600 mb-8">Looks like you haven't added any products to your cart yet.</p>
+          <p className="text-gray-600 mb-8">
+             {"Looks like you haven't added any products to your cart yet."}
+          </p>
           <Link 
             href="/products"
             className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 font-medium"
@@ -140,10 +142,12 @@ const CartPage = () => {
               {items.map((item) => (
                 <div key={item.id} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
                   <div className="flex-shrink-0">
-                    <img
-                      src={item.image || '/placeholder.png'}
-                      alt={item.name}
-                      className="w-20 h-20 object-cover rounded-md"
+                    <Image
+                     src={item.image}
+                     alt={item.name}
+                     width={100}        // hoặc kích thước phù hợp
+                     height={100}
+                     objectFit="cover"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
