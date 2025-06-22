@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { supabase } from '../../lib/supabase';
+import AddToCartButton from '../../components/AddToCartButton';
 
 const ProductsPage = () => {
   const router = useRouter();
@@ -143,8 +144,14 @@ const ProductsPage = () => {
             </Link>
             <h2 className="text-lg font-bold mb-2">{product.name}</h2>
             <p className="text-green-600 font-bold">${product.price.toFixed(2)}</p>
-            <p className="text-gray-600">{product.description}</p>
-            <div className="flex space-x-4 mt-4">              
+            <p className="text-gray-600 mb-4">{product.description}</p>
+            
+            {/* Add to Cart Button */}
+            <div className="mb-4">
+              <AddToCartButton product={product} showQuantity={false} />
+            </div>
+            
+            <div className="flex space-x-4">              
               <button
                 onClick={() => openEditPage(product.id)}
                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
