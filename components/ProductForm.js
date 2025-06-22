@@ -67,7 +67,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
     if (message) {
       setMessage('');
     }
-  }, [productData]);
+  }, [productData, message]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
