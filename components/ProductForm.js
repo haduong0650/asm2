@@ -43,6 +43,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
 
   useEffect(() => {
     if (productData && productData.id) {
+      //Trường hợp edit sản phẩm
       setForm({
         name: productData.name || '',
         description: productData.description || '',
@@ -52,7 +53,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
       setFilePreview(productData.image || '');
       setSelectedFile(null);
     } else {
-      if (form.name || form.description || form.price || form.image || selectedFile || filePreview) {
+       //Trường hợp Add new product
           setForm({
               name: '',
               description: '',
@@ -62,7 +63,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
           setFilePreview('');
           setSelectedFile(null);
       }
-    }
+    
     if (message) {
       setMessage('');
     }
