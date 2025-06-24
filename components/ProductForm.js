@@ -42,32 +42,35 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
   }, []);
 
   useEffect(() => {
-    if (productData && productData.id) {
-      //Trường hợp edit sản phẩm
-      setForm({
-        name: productData.name || '',
-        description: productData.description || '',
-        price: productData.price || '',
-        image: productData.image || '',
-      });
-      setFilePreview(productData.image || '');
-      setSelectedFile(null);
-    } else {
-       //Trường hợp Add new product
-          setForm({
-              name: '',
-              description: '',
-              price: '',
-              image: '',
-          });
-          setFilePreview('');
-          setSelectedFile(null);
-      }
-    
-    if (message) {
-      setMessage('');
-    }
-  }, [productData, message]);
+  if (productData && productData.id) {
+    // Trường hợp edit sản phẩm
+    setForm({
+      name: productData.name || '',
+      description: productData.description || '',
+      price: productData.price || '',
+      image: productData.image || '',
+    });
+    setFilePreview(productData.image || '');
+    setSelectedFile(null);
+  } else if (!productData) {
+    // Chỉ reset khi productData thực sự thay đổi sang null
+    setForm({
+      name: '',
+      description: '',
+      price: '',
+      image: '',
+    });
+    setFilePreview('');
+    setSelectedFile(null);
+  }
+}, [productData]); // ✅ chỉ theo dõi productData
+
+// Tách message ra effect riêng
+useEffect(() => {
+  if (message) {
+    setMessage('');
+  }
+}, [message]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -206,6 +209,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
             name="name"
             value={form.name}
             onChange={handleChange}
+            placeholder="Enter product name"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             required
           />
@@ -217,6 +221,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
             name="description"
             value={form.description}
             onChange={handleChange}
+            placeholder="Enter product description"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             required
           />
@@ -229,6 +234,7 @@ const ProductForm = ({ productData = {}, onSubmit }) => {
             name="price"
             value={form.price}
             onChange={handleChange}
+            placeholder="Enter price (e.g. 100)"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             required
           />
